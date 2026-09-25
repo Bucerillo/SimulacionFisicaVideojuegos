@@ -1,5 +1,11 @@
 #include "SceneManager.h"
+#include "P0S_Scene.h"
 #include <iostream>
+
+SceneManager::SceneManager() {
+    m_factories["P0S_Scene"] = []() -> Scene* { return new P0S_Scene(); };
+
+}
 
 // Solicita el cambio de escena. Si el nombre no está registrado, se escribe
 // un error en stderr y la solicitud se ignora.
@@ -50,6 +56,11 @@ void SceneManager::keyPress(unsigned char key, const physx::PxTransform& cameraT
     if (key == 'V') {
         changeScene("EscenaVacia");
         return; // Consumimos el evento para que no interfiera con la escena
+    }
+
+    if (key == '0') {
+        changeScene("P0S_Scene");
+        return;
     }
 
     // Si no es una tecla de navegación global, se la pasamos a la escena activa
